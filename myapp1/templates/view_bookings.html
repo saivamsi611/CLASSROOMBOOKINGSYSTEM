@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        /* Container Styles */
+        .bookings-container {
+            max-width: 80%;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading Styles */
+        .bookings-container h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #00f2fe;
+            color: white;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        /* Alternate Row Colors */
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+
+        /* Status Styling */
+        .status {
+            font-weight: bold;
+        }
+
+        .status-approved {
+            color: green;
+        }
+
+        .status-pending {
+            color: orange;
+        }
+
+        .status-cancelled {
+            color: red;
+        }
+    </style>
+
+    <div class="bookings-container">
+        <h2>My Bookings</h2>
+
+        <table>
+            <tr>
+                <th>Room</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+            </tr>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.room }}</td>
+                    <td>{{ booking.date }}</td>
+                    <td>{{ booking.start_time }}</td>
+                    <td>{{ booking.end_time }}</td>
+                    <td class="status {% if booking.status == 'Approved' %}status-approved{% elif booking.status == 'Pending' %}status-pending{% else %}status-cancelled{% endif %}">
+                        {{ booking.status }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

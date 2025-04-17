@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            width: 400px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: scale(1.05);
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        p {
+            font-size: 18px;
+        }
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            padding: 10px;
+            color: #ffcc00;
+            text-decoration: none;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        i {
+            margin-right: 8px;
+        }
+        .notifications {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        .notif-item {
+            font-size: 14px;
+            margin: 5px 0;
+            text-align: left;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Welcome, {{ user.username }} (Admin)</p>
+        
+        <a href="{% url 'view_all_bookings' %}"><i class="fas fa-calendar-alt"></i> View All Bookings</a>
+        <a href="{% url 'manage_rooms' %}"><i class="fas fa-door-closed"></i> Manage Rooms</a>
+        <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        
+        <div class="notifications">
+            <h3>Recent Bookings</h3>
+            {% if notifications %}
+                {% for notif in notifications %}
+                    <div class="notif-item">{{ notif.timestamp }} - {{ notif.message }}</div>
+                {% endfor %}
+            {% else %}
+                <p>No new notifications</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
